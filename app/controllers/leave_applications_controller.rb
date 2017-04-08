@@ -4,7 +4,7 @@ class LeaveApplicationsController < ApplicationController
   # GET /leave_applies
   # GET /leave_applies.json
   def index
-    @leave_applications = LeaveApplication.all
+    @leave_applications = current_user.leave_applications.all
   end
 
   # GET /leave_applies/1
@@ -24,6 +24,7 @@ class LeaveApplicationsController < ApplicationController
   # POST /leave_applies
   # POST /leave_applies.json
   def create
+
     @leave_application = LeaveApplication.new(leave_application_params)
 
     respond_to do |format|
@@ -68,7 +69,7 @@ class LeaveApplicationsController < ApplicationController
     end
 
     def leave_application_params
-      params.require(:leave_application).permit(:start_date, :end_date, :leave_type, :session_name, :status, :reason)
+      params.require(:leave_application).permit(:start_date, :end_date, :leave_type, :session_name, :status, :reason, :user_id)
     end
 end
 

@@ -13,29 +13,33 @@
 
   <div class="field">
     <%= f.label :start_date %><br>
-    <%= f.datetime_select :start_date %>
+    <%= f.date_select :start_date %>
   </div>
   <div class="field">
     <%= f.label :end_date %><br>
-    <%= f.datetime_select :end_date %>
+    <%= f.date_select :end_date %>
   </div>
   <div class="field">
     <%= f.label :leave_type %><br>
-    <%= f.number_field :leave_type %>
+    <select  name="leave_application[leave_type]" class="form-control">
+      <option value="1">Full Day</option>
+      <option value="2">Half Day</option>
+    </select>
   </div>
   <div class="field">
     <%= f.label :session_name %><br>
-    <%= f.number_field :session_name %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.check_box :status %>
+    <select  name="leave_application[session_name]" class="form-control">
+      <option value="">-Select-</option>
+      <option value="Forenoon">Forenoon</option>
+      <option value="Afternoon">Afternoon</option>
+    </select>
   </div>
   <div class="field">
     <%= f.label :reason %><br>
     <%= f.text_field :reason %>
   </div>
   <div class="actions">
+  <%= f.hidden_field :user_id, :value => current_user.id%>
     <%= f.submit %>
   </div>
 <% end %>
