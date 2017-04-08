@@ -4,7 +4,11 @@ class LeaveApplicationsController < ApplicationController
   # GET /leave_applies
   # GET /leave_applies.json
   def index
-    @leave_applications = current_user.leave_applications.all
+  	if current_user.role_id == 1
+  	  @leave_applications = LeaveApplication.all
+  	else
+     @leave_applications = current_user.leave_applications.all
+    end
   end
 
   # GET /leave_applies/1

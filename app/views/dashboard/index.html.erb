@@ -2,3 +2,5 @@
 <p>Find me in app/views/dashboard/index.html.erb</p>
 <%= link_to "Leave Apply", new_leave_application_path%>
 <%= link_to "Leave Approval", leave_applications_path%>
+<%= button_to('Logout', destroy_user_session_path,
+          method: "delete", data: { confirm: 'Are you sure?', disable_with: 'loading...' }) %>
