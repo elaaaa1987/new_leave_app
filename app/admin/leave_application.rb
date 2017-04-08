@@ -1,8 +1,8 @@
-ActiveAdmin.register User do
+ActiveAdmin.register LeaveApplication do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :email, :role_id, :password
+# permit_params :list, :of, :attributes, :on, :model
 #
 # or
 #
@@ -11,21 +11,5 @@ permit_params :email, :role_id, :password
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-
-  form title: 'New User' do |f|
-    inputs 'Details' do
-      input :role
-      input :email
-      input :password
-    end
-    actions
-  end
-
-index do
-  id_column
-  column :email
-  column :role
-  actions
-end
 
 end
