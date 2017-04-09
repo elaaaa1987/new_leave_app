@@ -32,6 +32,9 @@ gem 'activeadmin', github: 'activeadmin'
 #Access restriction
 gem 'cancancan', '~> 1.10'
 
+#Decorater Pattern for view file
+gem 'draper'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

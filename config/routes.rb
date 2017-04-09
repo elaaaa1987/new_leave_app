@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :leave_applications
+  resources :leave_applications do
+    collection do
+      post :approve_leave
+      post :reject_leave
+    end
+  end
   get 'dashboard/index'
 
   resources :roles

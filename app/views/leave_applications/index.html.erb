@@ -12,7 +12,8 @@
       <th>Status</th>
       <th>Reason</th>
       <% if current_user.role_id == 1%>
-      <th colspan="3"></th>
+      <th>Approve/Reject</th>
+      <th colspan="2"></th>
       <% end %>
     </tr>
   </thead>
@@ -20,14 +21,18 @@
   <tbody>
     <% @leave_applications.each do |leave_application| %>
       <tr>
-        <td><%= leave_application.start_date %></td>
-        <td><%= leave_application.end_date %></td>
-        <td><%= leave_application.leave_type %></td>
-        <td><%= leave_application.session_name %></td>
-        <td><%= leave_application.status %></td>
+        <td><%= leave_application.get_formated_date(leave_application.start_date) %></td>
+        <td><%= leave_application.get_formated_date(leave_application.end_date) %></td>
+        <td><%= leave_application.get_leave_type(leave_application.leave_type) %></td>
+        <td><%= leave_application.get_session_name(leave_application.session_name) %></td>
+        <td><%= leave_application.get_status(leave_application.status) %></td>
         <td><%= leave_application.reason %></td>
         <% if current_user.role_id == 1%>
-        <td><%= link_to 'Show', leave_application %></td>
+        <td>
+        <%= link_to 'Approve', approve_leave_leave_applications_path(:id =>leave_application.id,:status => true),:method => "POST" %> 
+        | 
+
+        <%= link_to 'Reject', reject_leave_leave_applications_path(:id =>leave_application.id,:status => false),:method => "POST" %></td>
         <td><%= link_to 'Edit', edit_leave_application_path(leave_application) %></td>
         <td><%= link_to 'Destroy', leave_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

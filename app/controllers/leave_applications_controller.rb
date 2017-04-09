@@ -1,13 +1,13 @@
 class LeaveApplicationsController < ApplicationController
-	before_action :set_leave_application, only: [:show, :edit, :update, :destroy]
+	before_action :set_leave_application, only: [:show, :edit, :update, :destroy, :approve_leave, :reject_leave]
 
   # GET /leave_applies
   # GET /leave_applies.json
   def index
   	if current_user.role_id == 1
-  	  @leave_applications = LeaveApplication.all
+  	  @leave_applications = LeaveApplication.all.decorate
   	else
-     @leave_applications = current_user.leave_applications.all
+     @leave_applications = current_user.leave_applications.all.decorate
     end
   end
 
@@ -33,7 +33,7 @@ class LeaveApplicationsController < ApplicationController
 
     respond_to do |format|
       if @leave_application.save
-        format.html { redirect_to @leave_application, notice: 'Leave apply was successfully created.' }
+        format.html { redirect_to leave_applications_path, notice: 'Leave apply was successfully created.' }
         format.json { render :show, status: :created, location: @leave_application }
       else
         format.html { render :new }
@@ -54,6 +54,28 @@ class LeaveApplicationsController < ApplicationController
         format.json { render json: @leave_application.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  #/approve_leave
+  def approve_leave
+  	if @leave_application.update_attributes(:status => params[:status])
+  		flash[:notice] = "Leave approved successfully"
+  		redirect_to leave_applications_path
+  	else
+  		flash[:alert] = "Leave approved failed.Try Again."
+  		redirect_to leave_applications_path
+  	end
+  end
+
+  #/reject_leave
+  def reject_leave
+  	if @leave_application.update_attributes(:status => params[:status])
+  		flash[:notice] = "Leave rejected successfully"
+  		redirect_to leave_applications_path
+  	else
+  		flash[:alert] = "Leave rejected failed.Try Again."
+  		redirect_to leave_applications_path
+  	end
   end
 
   # DELETE /leave_applies/1
